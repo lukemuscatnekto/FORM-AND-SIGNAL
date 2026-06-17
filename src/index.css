@@ -1,0 +1,265 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Canela';
+  src: url('https://fonts.cdnfonts.com/s/86518/Canela-Regular-Trial.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Canela';
+  src: url('https://fonts.cdnfonts.com/s/86518/Canela-RegularItalic-Trial.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@theme {
+  --color-canvas: #0b0d12;
+  --color-surface: #141419;
+  --color-surface-muted: #181820;
+  --color-elevated: #181820;
+  --color-border: rgb(255 255 255 / 0.06);
+  --color-border-strong: rgb(255 255 255 / 0.12);
+  --color-ink: #f2f2f3;
+  --color-ink-muted: #a2a8b3;
+  --color-ink-soft: #8a919c;
+  --color-accent: #4c6bff;
+  --color-accent-hover: #5875ff;
+  --color-glow: rgb(76 107 255 / 0.15);
+  --font-sans: "Satoshi", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Canela", "Times New Roman", serif;
+}
+
+@layer base {
+  html { scroll-behavior: auto; }
+  body {
+    @apply bg-canvas text-ink antialiased;
+    font-family: var(--font-sans);
+  }
+  section {
+    padding-block: clamp(64px, 7vw, 112px);
+  }
+  section + section {
+    padding-block-start: clamp(32px, 3.5vw, 64px);
+  }
+  [id='services'],
+  [id='process'],
+  [id='work'],
+  [id='studio'],
+  [id='contact'] {
+    scroll-margin-top: 0;
+  }
+  ::selection { background: rgb(76 107 255 / 0.25); }
+  a:focus-visible,
+  button:focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+}
+
+@layer utilities {
+  .section-padding { @apply px-5 sm:px-8 lg:px-12; }
+  .section-padding-compact { @apply px-5 py-10 sm:px-8 sm:py-11 lg:px-12 lg:py-12; }
+  .container-wide { @apply mx-auto w-full max-w-6xl; }
+  .label-sm {
+    font-family: var(--font-sans);
+    @apply text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-soft;
+  }
+  .heading-hero {
+    @apply text-4xl font-semibold leading-[1.06] tracking-[-0.03em] sm:text-5xl lg:text-[3.35rem];
+  }
+  .heading-section {
+    @apply text-3xl font-semibold leading-[1.1] tracking-[-0.02em] sm:text-4xl;
+  }
+  .text-highlight {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    @apply text-accent;
+  }
+  .font-serif {
+    font-family: var(--font-serif);
+  }
+  .card-soft {
+    @apply rounded-2xl border border-border bg-surface;
+    box-shadow: 0 0 0 1px rgb(255 255 255 / 0.02), 0 24px 60px -40px rgb(76 107 255 / 0.08);
+  }
+  .card-interactive {
+    @apply rounded-2xl border border-border bg-surface transition-[border-color,box-shadow,transform] duration-200;
+    box-shadow: 0 0 0 1px rgb(255 255 255 / 0.02);
+  }
+  .card-interactive:hover {
+    border-color: rgb(255 255 255 / 0.12);
+    box-shadow: 0 0 0 1px rgb(76 107 255 / 0.12), 0 0 40px -12px rgb(76 107 255 / 0.15);
+  }
+  .btn-primary-shadow {
+    box-shadow: 0 0 0 1px rgb(76 107 255 / 0.2), 0 12px 40px -12px rgb(76 107 255 / 0.35);
+  }
+  .glow-accent {
+    box-shadow: 0 0 60px -10px rgb(76 107 255 / 0.15);
+  }
+  .hero-mockup-glow {
+    background: radial-gradient(
+      ellipse 92% 78% at 50% 54%,
+      rgb(76 107 255 / 0.13) 0%,
+      rgb(76 107 255 / 0.06) 42%,
+      transparent 72%
+    );
+  }
+  @media (min-width: 640px) {
+    .hero-mockup-glow {
+      background: radial-gradient(
+        ellipse 88% 74% at 50% 52%,
+        rgb(76 107 255 / 0.14) 0%,
+        rgb(76 107 255 / 0.06) 44%,
+        transparent 70%
+      );
+    }
+  }
+  @media (min-width: 1024px) {
+    .hero-mockup-glow {
+      background: radial-gradient(
+        ellipse 82% 70% at 50% 50%,
+        rgb(76 107 255 / 0.15) 0%,
+        rgb(76 107 255 / 0.06) 45%,
+        transparent 70%
+      );
+    }
+  }
+  .timeline-line {
+    background: rgb(76 107 255 / 0.32);
+    box-shadow: 0 0 16px rgb(76 107 255 / 0.12);
+  }
+  .marquee-fade-left {
+    background: linear-gradient(to right, var(--color-surface) 0%, transparent 100%);
+  }
+  .marquee-fade-right {
+    background: linear-gradient(to left, var(--color-surface) 0%, transparent 100%);
+  }
+  .form-panel {
+    @apply overflow-hidden rounded-[1.5rem] border border-border bg-surface;
+    box-shadow: 0 0 0 1px rgb(255 255 255 / 0.04), 0 0 80px -20px rgb(76 107 255 / 0.12);
+  }
+  .form-panel-header {
+    @apply border-b border-border bg-surface-muted px-6 py-5 sm:px-8 sm:py-6;
+  }
+  .form-panel-body {
+    @apply px-6 py-8 sm:px-8 sm:py-10;
+  }
+  .hero-word {
+    opacity: 1;
+    transform: none;
+  }
+  .nav-link {
+    @apply relative text-sm font-medium text-ink-muted transition-colors duration-200 hover:text-ink;
+  }
+  .nav-link::after {
+    content: '';
+    @apply absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-200;
+  }
+  .nav-link:hover::after,
+  .nav-link-active::after {
+    transform: scaleX(1);
+  }
+  .nav-link-active {
+    @apply text-ink;
+  }
+  .field-group:focus-within .form-label {
+    color: #f2f2f3;
+    transform: translateY(-2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-word {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes timeline-draw-x {
+  from {
+    transform: scaleX(0);
+    opacity: 0.5;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes timeline-draw-y {
+  from {
+    transform: scaleY(0);
+    opacity: 0.5;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+
+@keyframes founding-pulse {
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-founding-pulse {
+  animation: founding-pulse 2s ease-in-out infinite;
+}
+
+.timeline-line-draw-h {
+  transform-origin: left center;
+}
+
+.timeline-line-draw-v {
+  transform-origin: top center;
+}
+
+@supports (animation-timeline: view()) {
+  .timeline-line-draw-h {
+    animation: timeline-draw-x 1.1s ease-out both;
+    animation-timeline: view();
+    animation-range: entry 8% cover 32%;
+  }
+
+  .timeline-line-draw-v {
+    animation: timeline-draw-y 1.1s ease-out both;
+    animation-timeline: view();
+    animation-range: entry 8% cover 32%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+
+  .animate-founding-pulse {
+    animation: none;
+    opacity: 1;
+  }
+
+  .timeline-line-draw-h,
+  .timeline-line-draw-v {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
