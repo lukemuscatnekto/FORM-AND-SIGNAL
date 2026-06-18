@@ -9,34 +9,30 @@ export type Service = {
 export const services: Service[] = [
   {
     number: '01',
-    title: 'Branding',
-    icon: 'branding',
-    description:
-      'A clear, confident identity system — logo direction, palette, type and rules — so you look established from day one.',
-    outcome: 'Instant credibility',
-  },
-  {
-    number: '02',
-    title: 'Websites',
+    title: 'Website',
     icon: 'website',
-    description:
-      'Modern, fast, conversion-focused sites that turn first impressions into enquiries.',
+    description: 'Mobile-first sites that load fast and convert visitors.',
     outcome: 'More qualified leads',
   },
   {
+    number: '02',
+    title: 'Brand Identity',
+    icon: 'branding',
+    description: 'Logo, colors, and visual system that looks professional.',
+    outcome: 'Instant credibility',
+  },
+  {
     number: '03',
-    title: 'Content Systems',
+    title: 'Instagram Content',
     icon: 'content',
-    description:
-      'Reusable social, launch and campaign assets that keep your brand consistent everywhere.',
+    description: 'Posts, carousels, and captions that get you noticed.',
     outcome: 'Consistent presence',
   },
   {
     number: '04',
-    title: 'Launch Systems',
+    title: 'Launch Strategy',
     icon: 'launch',
-    description:
-      'A structured path from idea to polished online presence — built to go live cleanly.',
+    description: 'Google Business, reviews, and a plan to get found.',
     outcome: 'A confident launch',
   },
 ]

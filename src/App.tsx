@@ -7,9 +7,10 @@ import { ScrollTrigger } from './lib/gsap'
 import { HomePage } from './pages/HomePage'
 import { ShowcasePage } from './pages/ShowcasePage'
 import { WorkDetailPage } from './pages/WorkDetailPage'
+import { PricingPage } from './pages/PricingPage'
 import { WorkPage } from './pages/WorkPage'
 
-const PRIMARY_ROUTES = ['/', '/studio'] as const
+const PRIMARY_ROUTES = ['/', '/studio', '/pricing'] as const
 
 export default function App() {
   const location = useLocation()
@@ -22,6 +23,7 @@ export default function App() {
     <Routes location={location}>
       <Route path="/" element={<HomePage />} />
       <Route path="/studio" element={<ShowcasePage />} />
+      <Route path="/pricing" element={<PricingPage />} />
       <Route path="/approach" element={<Navigate to="/studio" replace />} />
       <Route path="/showcase" element={<Navigate to="/studio" replace />} />
       <Route path="/work" element={<WorkPage />} />

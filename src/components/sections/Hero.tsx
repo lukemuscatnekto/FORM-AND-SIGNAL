@@ -1,47 +1,44 @@
 import { useGSAP } from '@gsap/react'
+import { Clock, MapPin } from 'lucide-react'
 import { useRef } from 'react'
+import { Link } from 'react-router-dom'
 import heroBgNormal from '../../assets/form-signal-hero-background.png'
 import heroBgUpsideDown from '../../assets/form-signal-hero-background-upside-down.png'
 import logoMark from '../../assets/form-signal-logo-transparent.png'
-import {
-  getContactHref,
-  getPrimaryCtaLabel,
-  getSecondaryCtaHref,
-  getSecondaryCtaLabel,
-  siteConfig,
-} from '../../data/site'
+import { FOUNDING_CONFIG } from '../../data/pricing'
+import { workProjects } from '../../data/work'
+import { getPrimaryCtaHref, getPrimaryCtaLabel, getSecondaryCtaHref, getSecondaryCtaLabel } from '../../data/site'
 import { usePrefersReducedMotion } from '../../hooks/useReducedMotion'
 import { GSAP_EASE } from '../../lib/animations'
 import { gsap, isMotionEnabled } from '../../lib/gsap'
 import { Magnetic } from '../motion/Magnetic'
-import { Parallax } from '../motion/Parallax'
 import { Button } from '../ui/Button'
-import { HeroVisual } from '../ui/HeroVisual'
 import { HeroHeadline } from './HeroHeadline'
+
+const heroShowcaseProjects = workProjects.filter((project) =>
+  ['driven-gloss', 'master-of-detailing'].includes(project.slug),
+)
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
-  const figureRef = useRef<HTMLElement>(null)
+  const showcaseRef = useRef<HTMLDivElement>(null)
   const reduceMotion = usePrefersReducedMotion()
 
   useGSAP(
     () => {
-      if (!isMotionEnabled() || reduceMotion || !figureRef.current) return
-
-      const mockup = figureRef.current.querySelector('.hero-mockup-inner')
-      if (!mockup) return
+      if (!isMotionEnabled() || reduceMotion || !showcaseRef.current) return
 
       gsap.fromTo(
-        mockup,
-        { scale: 0.92, y: 40 },
+        showcaseRef.current,
+        { opacity: 0, y: 32 },
         {
-          scale: 1,
+          opacity: 1,
           y: 0,
           ease: GSAP_EASE,
           scrollTrigger: {
-            trigger: figureRef.current,
+            trigger: showcaseRef.current,
             start: 'top 85%',
-            end: 'top 35%',
+            end: 'top 45%',
             scrub: true,
           },
         },
@@ -55,14 +52,12 @@ export function Hero() {
       ref={sectionRef}
       className="relative min-h-[150vh] overflow-hidden bg-black !py-0 text-center"
     >
-      {/* Upper upside-down background layer */}
       <img
         src={heroBgUpsideDown}
         alt=""
         aria-hidden="true"
         className="pointer-events-none absolute left-0 top-0 h-[82vh] w-full object-cover object-[center_42%] opacity-85"
       />
-      {/* Lower normal background layer */}
       <img
         src={heroBgNormal}
         alt=""
@@ -70,13 +65,11 @@ export function Hero() {
         className="pointer-events-none absolute bottom-0 left-0 h-[105vh] w-full object-cover object-[center_78%] opacity-85"
       />
 
-      {/* Soft blend between top and bottom images */}
       <div
         className="absolute inset-x-0 top-[55vh] h-[45vh] bg-gradient-to-b from-transparent via-black/25 to-transparent"
         aria-hidden="true"
       />
 
-      {/* Global overlays */}
       <div className="absolute inset-0 bg-black/14" aria-hidden="true" />
       <div
         className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/18 to-black/55"
@@ -105,7 +98,7 @@ export function Hero() {
           <HeroHeadline />
         </div>
 
-        <p className="mx-auto mt-6 max-w-lg text-base leading-[1.75] text-[#8A8A93] md:text-lg">
+        <p className="mx-auto mt-6 max-w-lg text-base leading-[1.75] text-ink-muted md:text-lg">
           FORM & SIGNAL is a digital launch studio. We build the branding, websites and content that
           make small brands, startups and local businesses look credible and ready to grow.
         </p>
@@ -116,21 +109,17 @@ export function Hero() {
             aria-hidden="true"
           />
           <div className="relative flex w-full flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
-            <Magnetic className="w-full sm:w-auto">
-              <Button
-                href={getContactHref()}
-                external={Boolean(siteConfig.bookingUrl)}
-                className="w-full sm:w-auto"
-              >
+            <Magnetic className="w-full sm:flex-1">
+              <Button to={getPrimaryCtaHref()} className="btn-primary-shadow w-full">
                 {getPrimaryCtaLabel()}
               </Button>
             </Magnetic>
-            <Magnetic className="w-full sm:w-auto">
+            <Magnetic className="w-full sm:flex-1">
               <Button
                 href={getSecondaryCtaHref()}
                 variant="secondary"
                 showArrow={false}
-                className="w-full sm:w-auto"
+                className="w-full"
               >
                 {getSecondaryCtaLabel()}
               </Button>
@@ -138,20 +127,72 @@ export function Hero() {
           </div>
         </div>
 
-        <figure
-          ref={figureRef}
-          className="relative mx-auto mt-16 w-full max-w-[92vw] md:mt-20 md:max-w-[640px] lg:mt-24 lg:max-w-[760px]"
-        >
-          <Parallax className="relative w-full">
-            <div className="hero-mockup-glow pointer-events-none absolute inset-0" aria-hidden="true" />
-            <div className="hero-mockup-inner relative z-10 mx-auto w-full max-w-[640px] lg:max-w-[760px]">
-              <HeroVisual />
-            </div>
-          </Parallax>
-          <figcaption className="mt-3 text-center text-sm text-[#A2A8B3]">
-            Our own launch system — built as the case study.
-          </figcaption>
-        </figure>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+          <div className="flex items-center gap-2">
+            <span
+              className="h-2 w-2 rounded-full bg-emerald-500"
+              aria-hidden="true"
+            />
+            <span className="text-xs font-medium text-ink-muted">2 businesses launched</span>
+          </div>
+          <span className="hidden h-3 w-px bg-border sm:block" aria-hidden="true" />
+          <div className="flex items-center gap-2">
+            <MapPin className="h-3 w-3 text-ink-soft" aria-hidden="true" />
+            <span className="text-xs font-medium text-ink-muted">Malta-based</span>
+          </div>
+          <span className="hidden h-3 w-px bg-border sm:block" aria-hidden="true" />
+          <div className="flex items-center gap-2">
+            <Clock className="h-3 w-3 text-ink-soft" aria-hidden="true" />
+            <span className="text-xs font-medium text-ink-muted">5-day delivery</span>
+          </div>
+          <span className="hidden h-3 w-px bg-border sm:block" aria-hidden="true" />
+          <div className="flex items-center gap-2">
+            <span
+              className="h-2 w-2 animate-pulse rounded-full bg-accent"
+              aria-hidden="true"
+            />
+            <span className="text-xs font-medium text-accent">
+              {FOUNDING_CONFIG.spotsRemaining} founding spots left
+            </span>
+          </div>
+        </div>
+
+        <div ref={showcaseRef} className="mx-auto mt-16 w-full max-w-3xl md:mt-20 lg:mt-24">
+          <p className="text-sm text-ink-muted">Recent launches — built as the case studies.</p>
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {heroShowcaseProjects.map((project) => (
+              <Link
+                key={project.slug}
+                to={`/work/${project.slug}`}
+                className="card-interactive overflow-hidden rounded-xl border border-border bg-surface text-left transition-[border-color] duration-200 hover:border-border-strong"
+              >
+                <img
+                  src={project.preview}
+                  alt={`${project.title} website preview`}
+                  className="h-40 w-full object-cover"
+                  style={{ objectPosition: project.objectPosition }}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="p-4">
+                  <p className="text-sm font-semibold text-ink">{project.title}</p>
+                  <p className="mt-1 text-xs text-ink-muted">
+                    {project.status === 'Live' ? 'Live site' : project.statusDetail}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-6 text-center">
+            <Link
+              to="/work"
+              className="inline-flex items-center gap-2 text-sm font-medium text-accent transition-colors hover:text-accent-hover"
+            >
+              See our work
+              <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+        </div>
       </div>
     </section>
   )

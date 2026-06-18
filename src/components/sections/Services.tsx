@@ -10,7 +10,7 @@ export function Services() {
         <SectionHeader
           label="What we do"
           title="Everything your brand needs to launch properly"
-          description="Four services that work as one system — from first impression to a launch that performs."
+          description="Four services that work as one system — from first impression to a launch that performs. For barbers, detailers, salons, and trades in Malta."
         />
 
         <div className="grid gap-5 md:grid-cols-2 md:gap-6">

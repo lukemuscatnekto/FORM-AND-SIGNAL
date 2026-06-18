@@ -1,31 +1,58 @@
+import { FOUNDING_CONFIG } from './pricing'
+
+export type InquiryProjectType = 'founding-spot' | 'standard' | 'premium' | ''
+
+export type InquiryFormValues = {
+  name: string
+  email: string
+  businessName: string
+  launching: string
+  projectType: InquiryProjectType
+  budget: string
+  timeline: string
+  message: string
+}
+
+export const inquiryPackages = {
+  'founding-spot': {
+    id: 'founding-spot' as const,
+    cardBadge: 'Founding Rate',
+    title: 'Starter Launch Kit',
+    displayName: 'Starter Launch Kit — Founding Rate',
+    price: FOUNDING_CONFIG.foundingPrice,
+    regularPrice: FOUNDING_CONFIG.regularPrice,
+    delivery: '3-day delivery',
+    budgetRange: '€350 — €500 (Starter / Founding)',
+  },
+  standard: {
+    id: 'standard' as const,
+    cardBadge: 'Standard',
+    title: 'Launch Kit Plus',
+    displayName: 'Launch Kit Plus',
+    price: 647,
+    delivery: '5-day delivery',
+    budgetRange: '€500 — €1,000 (Standard)',
+  },
+  premium: {
+    id: 'premium' as const,
+    cardBadge: 'Premium',
+    title: 'Full Launch System',
+    displayName: 'Full Launch System',
+    price: 947,
+    delivery: '7-day delivery',
+    budgetRange: '€1,000 — €2,000 (Premium / Custom)',
+  },
+} as const
+
 export const inquiryFormOptions = {
-  projectTypes: [
-    { value: 'founding-spot', label: 'Founding spot — €400' },
-    { value: 'branding', label: 'Branding' },
-    { value: 'website', label: 'Website' },
-    { value: 'content-system', label: 'Content system' },
-    { value: 'full-launch', label: 'Full launch system' },
-    { value: 'not-sure', label: 'Not sure yet' },
-  ],
   budgetRanges: [
-    '€500 – €1,500',
-    '€1,500 – €3,000',
-    '€3,000 – €5,000',
-    '€5,000+',
+    '€350 — €500 (Starter / Founding)',
+    '€500 — €1,000 (Standard)',
+    '€1,000 — €2,000 (Premium / Custom)',
+    '€2,000+ (Full system + ongoing)',
     'Not sure yet',
   ],
   timelines: ['ASAP', 'This month', '1–3 months', 'Still planning'],
-} as const
-
-export const inquiryPricingAnchor = {
-  starter: 'Starter launch work typically begins from €500.',
-  custom: 'Full launch systems are quoted based on scope, timeline, and deliverables.',
-} as const
-
-export const inquiryFoundingBanner = {
-  headline: 'Founding rate active — €400 for the first 5 launches',
-  helperDefault: 'Select "Founding spot" under Project type to claim the rate.',
-  helperApplied: 'Founding rate applied — €400 for the first 5 launches.',
 } as const
 
 export const inquiryTrustCopy = {
@@ -35,39 +62,18 @@ export const inquiryTrustCopy = {
   preferEmail: 'Prefer email? Reach us directly at',
 } as const
 
-export type InquiryFormValues = {
-  name: string
-  email: string
-  businessName: string
-  launching: string
-  projectType: string
-  budget: string
-  timeline: string
-  message: string
+export function getPackageLabel(projectType: Exclude<InquiryProjectType, ''>): string {
+  return inquiryPackages[projectType].displayName
 }
 
-export function buildInquiryMailto(values: InquiryFormValues, studioEmail: string): string {
-  const projectTypeLabel =
-    inquiryFormOptions.projectTypes.find((option) => option.value === values.projectType)
-      ?.label ?? values.projectType
+export function getPackagePrice(projectType: Exclude<InquiryProjectType, ''>): number {
+  return inquiryPackages[projectType].price
+}
 
-  const subject = encodeURIComponent(
-    `Project inquiry — ${values.businessName.trim() || values.name.trim() || 'New brief'}`,
-  )
-  const body = encodeURIComponent(
-    [
-      `Name: ${values.name.trim()}`,
-      `Email: ${values.email.trim()}`,
-      `Business name: ${values.businessName.trim()}`,
-      `What are you launching?: ${values.launching.trim()}`,
-      `Project type: ${projectTypeLabel}`,
-      `Budget range: ${values.budget}`,
-      `Timeline: ${values.timeline}`,
-      '',
-      'Message:',
-      values.message.trim(),
-    ].join('\n'),
-  )
+export function getPackageBudgetRange(projectType: Exclude<InquiryProjectType, ''>): string {
+  return inquiryPackages[projectType].budgetRange
+}
 
-  return `mailto:${studioEmail}?subject=${subject}&body=${body}`
+export function getFoundingBannerHeadline(): string {
+  return `Founding rate active — €${FOUNDING_CONFIG.foundingPrice} for the first ${FOUNDING_CONFIG.totalSpots} ${FOUNDING_CONFIG.tierTitle}s`
 }

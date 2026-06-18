@@ -20,14 +20,4 @@ export const launchTransformation = {
       'Credible from day one',
     ],
   },
-  foundingRate: {
-    badge: 'Founding rate — 5 spots only',
-    headline: 'First 5 launches at €400',
-    copy:
-      "We're building our portfolio. You get agency-grade work at a founder-friendly price.",
-    standardPricing: 'After the first 5 spots, launches start from €500.',
-    scarcityLabel: 'Limited founding spots',
-    ctaLabel: 'Claim a founding spot',
-    ctaHelper: 'No commitment to enquire',
-  },
 } as const

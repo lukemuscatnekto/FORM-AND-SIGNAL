@@ -6,6 +6,7 @@ import { ProjectDeliverables } from '../components/work/ProjectDeliverables'
 import { ProjectTransformation } from '../components/work/ProjectTransformation'
 import { ProjectVisualSystem } from '../components/work/ProjectVisualSystem'
 import { ProjectCaseStudyCta } from '../components/work/ProjectCaseStudyCta'
+import { Contact } from '../components/sections/Contact'
 
 export function WorkDetailPage() {
   const { slug } = useParams<{ slug: string }>()
@@ -18,11 +19,12 @@ export function WorkDetailPage() {
   return (
     <article>
       <ProjectHero project={project} />
-      <ProjectBrief brief={project.brief} />
+      <ProjectBrief project={project} />
       <ProjectDeliverables items={project.deliverables} />
-      <ProjectTransformation />
+      <ProjectTransformation project={project} />
       <ProjectVisualSystem project={project} />
-      <ProjectCaseStudyCta />
+      <ProjectCaseStudyCta project={project} />
+      <Contact />
     </article>
   )
 }

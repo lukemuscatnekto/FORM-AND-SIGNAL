@@ -18,11 +18,14 @@ export const siteLinks = {
   services: '/#services',
   process: '/#process',
   studio: '/#studio',
+  pricing: '/pricing',
 } as const
 
 export const navLinks = [
   { label: 'Services', href: siteLinks.services },
+  { label: 'Work', href: siteLinks.work },
   { label: 'Process', href: siteLinks.process },
+  { label: 'Pricing', href: siteLinks.pricing },
   { label: 'Studio', href: siteLinks.studioPage },
 ] as const
 
@@ -39,6 +42,7 @@ export const footerLinks = {
   studio: [{ label: 'About', href: siteLinks.studio }],
   services: [
     { label: 'What we do', href: siteLinks.services },
+    { label: 'Work', href: siteLinks.work },
     { label: 'Process', href: siteLinks.process },
   ],
   connect: [
@@ -50,6 +54,10 @@ export const footerLinks = {
 
 export function getContactHref(): string {
   return siteConfig.bookingUrl ?? siteLinks.contact
+}
+
+export function getPrimaryCtaHref(): string {
+  return siteLinks.pricing
 }
 
 export function getPrimaryCtaLabel(): string {

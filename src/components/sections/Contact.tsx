@@ -5,7 +5,6 @@ import {
   getPrimaryCtaLabel,
   siteConfig,
 } from '../../data/site'
-import { inquiryFoundingBanner } from '../../data/inquiry'
 import { Button } from '../ui/Button'
 import { TextHighlight } from '../ui/TextHighlight'
 import { InquiryForm } from './InquiryForm'
@@ -76,16 +75,6 @@ export function Contact() {
               </p>
             </div>
             <div className="form-panel-body relative">
-              <div className="mb-6 rounded-xl border border-[#4C6BFF]/20 bg-[#4C6BFF]/10 p-3">
-                <p className="text-sm font-medium text-[#4C6BFF]">
-                  {inquiryFoundingBanner.headline}
-                </p>
-                <p className="mt-0.5 text-[13px] text-[#8A8A93]">
-                  {foundingApplied
-                    ? inquiryFoundingBanner.helperApplied
-                    : inquiryFoundingBanner.helperDefault}
-                </p>
-              </div>
               <InquiryForm foundingPreselected={foundingApplied} />
             </div>
           </div>

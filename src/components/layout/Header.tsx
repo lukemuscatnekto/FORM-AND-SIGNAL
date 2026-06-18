@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import {
-  getContactHref,
+  getPrimaryCtaHref,
   getPrimaryCtaLabel,
   navLinks,
-  siteConfig,
   siteLinks,
 } from '../../data/site'
 import { useNavScrollSpy } from '../../hooks/useNavScrollSpy'
@@ -21,8 +21,11 @@ function navSectionId(href: string): string | null {
 export function Header() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const location = useLocation()
   const activeSection = useNavScrollSpy()
   const closeMenu = () => setOpen(false)
+  const primaryCtaTo =
+    location.pathname === siteLinks.pricing ? `${siteLinks.pricing}#contact` : getPrimaryCtaHref()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80)
@@ -66,7 +69,7 @@ export function Header() {
               Contact
             </SiteLink>
             <Magnetic>
-              <Button href={getContactHref()} external={Boolean(siteConfig.bookingUrl)}>
+              <Button to={primaryCtaTo} className="btn-primary-shadow">
                 {getPrimaryCtaLabel()}
               </Button>
             </Magnetic>
@@ -109,13 +112,11 @@ export function Header() {
             >
               Contact
             </SiteLink>
-            <Button
-              href={getContactHref()}
-              className="mt-1 w-full"
-              external={Boolean(siteConfig.bookingUrl)}
-            >
-              {getPrimaryCtaLabel()}
-            </Button>
+            <div onClick={closeMenu}>
+              <Button to={primaryCtaTo} className="btn-primary-shadow mt-1 w-full">
+                {getPrimaryCtaLabel()}
+              </Button>
+            </div>
           </nav>
         </div>
       ) : null}
